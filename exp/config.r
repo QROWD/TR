@@ -12,10 +12,10 @@ require(RWeka)
 CLASSIFIERS = c("ANN", "C4.5", "kNN", "SVM")
 
 # datasets
-FILES = list.files(path="datasets", full.names=TRUE, recursive=TRUE)
+files = list.files(path="datasets", full.names=TRUE, recursive=TRUE)
 
 # folds to split the data
-FOLDS = combn(c(1, 2, 3), 2)
+folds = combn(c(1, 2, 3), 2)
 
 # mlp classifier
 MLP = make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")

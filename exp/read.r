@@ -4,24 +4,19 @@
 
 split <- function() {
 
-  train = apply(FOLDS, 2, function(i) {
-    FILES[grepl(i[1], FILES) | grepl(i[2], FILES)]
+  train = apply(folds, 2, function(i) {
+    files[grepl(i[1], files) | grepl(i[2], files)]
   })
 
   test = sapply(c(3,2,1), function(i) {
-    FILES[grepl(i, FILES)]
+    files[grepl(i, files)]
   })
 
-  aux = list()
-  aux$train = train
-  aux$test = test
-  aux
+  list(train, test)
 }
 
 read <- function(files) {
-  do.call("rbind", 
-    lapply(files, function(file) {
+  do.call("rbind", lapply(files, function(file) {
       read.csv(file)
-    })
-  )
+  }))
 }
