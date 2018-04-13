@@ -6,10 +6,10 @@
 require(e1071)
 require(kknn)
 require(randomForest)
-require(RWeka)
+require(pROC)
 
 # list of classifiers
-CLASSIFIERS = c("ANN", "C4.5", "kNN", "SVM")
+CLASSIFIERS = c("ANN", "C4.5", "kNN", "LM", "NB", "RF", "SVM")
 
 # datasets
 files = list.files(path="datasets", full.names=TRUE, recursive=TRUE)
@@ -18,4 +18,4 @@ files = list.files(path="datasets", full.names=TRUE, recursive=TRUE)
 folds = combn(c(1, 2, 3), 2)
 
 # mlp classifier
-MLP = make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
+mlp = RWeka::make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
