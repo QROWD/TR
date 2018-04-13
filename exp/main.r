@@ -2,18 +2,22 @@
 # Luis P. F. Garcia 2018
 # Validate the models
 
-oracle <- function(test) {
+oracle <- function(test, size) {
 
-  train = window(read(setdiff(files, test)))
-  test = window(read(test))
+  train = window(read(setdiff(files, test)), size)
+  test = window(read(test), size)
   classifiers(train, test)
 }
 
-main <- function() {
+main <- function(size) {
 
   test = split()
-  sapply(1:3, function(i) {
-      oracle(test[,i])
+  aux = lapply(1:3, function(i) {
+    oracle(test[,i], size)
   })
 
+  rowMeans(aux)
 }
+
+
+#lapply(seq(10, 100, by=10), main)
