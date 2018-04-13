@@ -51,7 +51,7 @@ multiclass.auc <- function(pred, class) {
 }
 
 balance.accuracy <- function(pred, class) {
-  pred = factor(apply(pred, 1, which.max), labels=levels(class))
+  pred = factor(levels(class)[apply(pred, 1, which.max)], levels=levels(class))
   diag(table(class, pred))/colSums(table(class, pred))
 }
 
