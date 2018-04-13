@@ -9,4 +9,4 @@ setup <- function() {
 }
 
 setup()
-main()
+main(50)
