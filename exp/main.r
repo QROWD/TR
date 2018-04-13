@@ -18,6 +18,3 @@ main <- function(size) {
 
   rowMeans(aux)
 }
-
-
-#lapply(seq(10, 100, by=10), main)
