@@ -5,7 +5,6 @@
 ANN <- function(train, test) {
   model = mlp(class ~ ., train, control=RWeka::Weka_control(L=0.3, M=0.5))
   pred = predict(model, test[,-ncol(test)], type="prob")
-  names(pred) = row.names(test)
   return(pred)
 }
 
@@ -24,7 +23,6 @@ kNN <- function(train, test, k=5) {
 LM <- function(train, test) {
   model = svm(class ~ ., train, kernel="linear",  probability=TRUE)
   pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
-  pred = pred[,levels(train$class)]
   return(pred)
 }
 
@@ -38,23 +36,22 @@ NB <- function(train, test) {
 RF <- function(train, test) {
   model = randomForest(class ~ ., train)
   pred = predict(model, test[,-ncol(test)], type="prob")
-   return(pred)
+  return(pred)
 }
 
 SVM <- function(train, test) {
   model = svm(class ~ ., train, kernel="radial", probability=TRUE)
   pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
-  pred = pred[,levels(train$class)]
   return(pred)
 }
 
 multiclass.auc <- function(pred, class) {
-  pred = pred[cbind(seq_along(class), class)]
+  pred = apply(pred, 1, which.max)
   as.numeric(multiclass.roc(class, pred)$auc)
 }
 
 balance.accuracy <- function(pred, class) {
-  pred = unique(class)[apply(pred, 1, which.max)]
+  pred = factor(apply(pred, 1, which.max), labels=levels(class))
   diag(table(class, pred))/colSums(table(class, pred))
 }
 
