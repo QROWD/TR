@@ -9,7 +9,7 @@ require(randomForest)
 require(pROC)
 
 # list of classifiers
-CLASSIFIERS = c("ANN", "C4.5", "kNN", "LM", "NB", "RF", "SVM")
+CLASSIFIERS = c("ANN", "C4.5", "kNN", "NB", "RF", "SVM")
 
 # datasets
 files = list.files(path="datasets", full.names=TRUE, recursive=TRUE)
