@@ -2,18 +2,18 @@
 # Luis P. F. Garcia 2018
 # Validate the models
 
-oracle <- function(train, test) {
+oracle <- function(test) {
 
-    train = windom(train)
-    test = windom(test)
-    classifiers(train, test)
+  train = window(read(setdiff(files, test)))
+  test = window(read(test))
+  classifiers(train, test)
 }
 
 main <- function() {
 
-  aux = split()
-  lapply(1:3, function(i) {
-    oracle(aux[[1]][,i], aux[[2]][,i])
+  test = split()
+  sapply(1:3, function(i) {
+      oracle(test[,i])
   })
 
 }
