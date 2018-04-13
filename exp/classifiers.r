@@ -4,25 +4,17 @@
 
 ANN <- function(train, test) {
   model = mlp(class ~ ., train, control=RWeka::Weka_control(L=0.3, M=0.5))
-  pred = predict(model, test[,-ncol(test)], type="prob")
-  return(pred)
+  predict(model, test[,-ncol(test)], type="prob")
 }
 
 C4.5 <- function(train, test) {
   model = RWeka::J48(class ~ ., train)
-  pred = predict(model, test[,-ncol(test)], type="prob")
-  return(pred)
+  predict(model, test[,-ncol(test)], type="prob")
 }
 
 kNN <- function(train, test, k=5) {
   pred = kknn(class ~., train, test[,-ncol(test)], k=k)$prob
   rownames(pred) = rownames(test)
-  return(pred)
-}
-
-LM <- function(train, test) {
-  model = svm(class ~ ., train, kernel="linear",  probability=TRUE)
-  pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
   return(pred)
 }
 
@@ -35,14 +27,12 @@ NB <- function(train, test) {
 
 RF <- function(train, test) {
   model = randomForest(class ~ ., train)
-  pred = predict(model, test[,-ncol(test)], type="prob")
-  return(pred)
+  predict(model, test[,-ncol(test)], type="prob")
 }
 
 SVM <- function(train, test) {
   model = svm(class ~ ., train, kernel="radial", probability=TRUE)
-  pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
-  return(pred)
+  attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
 }
 
 multiclass.auc <- function(pred, class) {
@@ -50,13 +40,13 @@ multiclass.auc <- function(pred, class) {
   as.numeric(multiclass.roc(class, pred)$auc)
 }
 
-balance.accuracy <- function(pred, class) {
+accuracy <- function(pred, class) {
   pred = factor(levels(class)[apply(pred, 1, which.max)], levels=levels(class))
   diag(table(class, pred))/colSums(table(class, pred))
 }
 
 performance <- function(pred, class) {
-  c(multiclass.auc(pred, class), balance.accuracy(pred, class))
+  c(multiclass.auc(pred, class), accuracy(pred, class))
 }
 
 classifiers <- function(train, test) {
