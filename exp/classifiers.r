@@ -3,7 +3,6 @@
 # Supervised Learning - Classifiers 
 
 ANN <- function(train, test) {
-
   model = mlp(class ~ ., train, control=RWeka::Weka_control(L=0.3, M=0.5))
   pred = predict(model, test[,-ncol(test)], type="prob")
   names(pred) = row.names(test)
@@ -49,14 +48,23 @@ SVM <- function(train, test) {
   return(pred)
 }
 
-multi.auc <- function(pred, class) {
+multiclass.auc <- function(pred, class) {
   pred = pred[cbind(seq_along(class), class)]
   as.numeric(multiclass.roc(class, pred)$auc)
+}
+
+balance.accuracy <- function(pred, class) {
+  pred = unique(class)[apply(pred, 1, which.max)]
+  diag(table(class, pred))/colSums(table(class, pred))
+}
+
+performance <- function(pred, class) {
+  c(multiclass.auc(pred, class), balance.accuracy(pred, class))
 }
 
 classifiers <- function(train, test) {
   sapply(CLASSIFIERS, function(c) {
     pred = do.call(c, list(train, test))
-    multi.auc(pred, test$class)
+    performance(pred, test$class)
   })
 }
