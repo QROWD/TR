@@ -27,7 +27,7 @@ window <- function(data, size=100) {
 
   step = 1:(nrow(data)/size)
   aux = t(sapply(step, function(i) {
-   ff(data[(((i-1)*size) + 1):(i*size),1])
+    ff(data[(((i-1)*size) + 1):(i*size),1])
   }))
 
   data.frame(aux, class=data[step*size, 2])
