@@ -12,10 +12,7 @@ require(pROC)
 CLASSIFIERS = c("ANN", "C4.5", "kNN", "NB", "RF", "SVM")
 
 # datasets
-files = list.files(path="datasets", full.names=TRUE, recursive=TRUE)
-
-# folds to split the data
-folds = combn(c(1, 2, 3), 2)
+FILES = list.files(path="datasets", full.names=TRUE)
 
 # mlp classifier
-mlp = RWeka::make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
+MLP = RWeka::make_Weka_classifier("weka/classifiers/functions/MultilayerPerceptron")
