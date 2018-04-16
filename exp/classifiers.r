@@ -3,7 +3,7 @@
 # Supervised Learning - Classifiers 
 
 ANN <- function(train, test) {
-  model = mlp(class ~ ., train, control=RWeka::Weka_control(L=0.3, M=0.5))
+  model = MLP(class ~ ., train)
   predict(model, test[,-ncol(test)], type="prob")
 }
 
@@ -32,7 +32,8 @@ RF <- function(train, test) {
 
 SVM <- function(train, test) {
   model = svm(class ~ ., train, kernel="radial", probability=TRUE)
-  attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
+  pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
+  pred = pred[,levels(train$class)]
 }
 
 multiclass.auc <- function(pred, class) {
