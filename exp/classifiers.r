@@ -4,36 +4,40 @@
 
 ANN <- function(train, test) {
   model = MLP(class ~ ., train)
-  predict(model, test[,-ncol(test)], type="prob")
+  pred = predict(model, test[,-ncol(test)], type="prob")
+  list(model, pred)
 }
 
 C4.5 <- function(train, test) {
   model = RWeka::J48(class ~ ., train)
-  predict(model, test[,-ncol(test)], type="prob")
+  pred = predict(model, test[,-ncol(test)], type="prob")
+  list(model, pred)
 }
 
 kNN <- function(train, test, k=5) {
   pred = kknn(class ~., train, test[,-ncol(test)], k=k)$prob
   rownames(pred) = rownames(test)
-  return(pred)
+  list(NULL, pred)
 }
 
 NB <- function(train, test) {
   model = naiveBayes(class ~ ., train)
   pred = predict(model, test[,-ncol(test)], type="raw")
   rownames(pred) = rownames(test)
-  return(pred)
+  list(model, pred)
 }
 
 RF <- function(train, test) {
   model = randomForest(class ~ ., train)
-  predict(model, test[,-ncol(test)], type="prob")
+  pred = predict(model, test[,-ncol(test)], type="prob")
+  list(model, pred)
 }
 
 SVM <- function(train, test) {
   model = svm(class ~ ., train, kernel="radial", probability=TRUE)
   pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
   pred = pred[,levels(train$class)]
+  list(model, pred)
 }
 
 multiclass.auc <- function(pred, class) {
@@ -47,12 +51,12 @@ accuracy <- function(pred, class) {
 }
 
 performance <- function(pred, class) {
-  c(multiclass.auc(pred, class), accuracy(pred, class))
+  c(auc=multiclass.auc(pred, class), accuracy(pred, class))
 }
 
 classifiers <- function(train, test) {
   sapply(CLASSIFIERS, function(c) {
-    pred = do.call(c, list(train, test))
+    pred = do.call(c, list(train, test))[[2]]
     performance(pred, test$class)
   })
 }
