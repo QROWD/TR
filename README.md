@@ -4,7 +4,7 @@ The Activity Recognition (AR) project is the implementation of a system based on
 
 ## Technical requirements
 
-The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages are required: e1071, kknn, randomForest, pROC and RWeka. The installation process is similar to other packages available on CRAN:
+The system was develop in `R` version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages are required: `e1071`, `kknn`, `randomForest`, `pROC` and `RWeka`. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
