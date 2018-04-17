@@ -42,3 +42,5 @@ To submit bugs and feature requests, report at [project issues](https://github.c
 
 [3] R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
 
+[4] Choudhury, Romit R. (2014)  CS-199: Big Data Course. URL http://web.engr.illinois.edu/~croy/big-data-spring14/BigData-course.html.
+
