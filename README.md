@@ -1,6 +1,6 @@
 # AR - Activity Recognition
 
-The Activity Recognition (AR) project is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The techniques used include Fast Fourier Transformation [1] to transform the data and classifiers like Artificial Neural Networks, k-Nearest Neighbour, Random Forest and Support Vector Machines [2]. The result is a model able to predict the labels with high accuracy and confident level. 
+The Activity Recognition (AR) project is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The techniques used include FFT [1] to transform the data and classifiers like ANN, k-NN, Random Forest and SVM [2]. The result is a model able to predict the labels with high accuracy and confident level. 
 
 ## Technical requirements
 
