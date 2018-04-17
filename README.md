@@ -14,10 +14,13 @@ install.packages(c("e1071", "kknn", "randomForest",
 
 ## Exemplo of use
 
+The simplest way to execute the code is load the `run.r` file inside R. To generate and evaluate the models with the datasets available and export the model with highest performance, you need to call the `main` function. To change parameters like the size of the windows, you can use the `size` parameter:     
+
 ```r
 # load the code
-setup()
-# execute the evaluation
+source("run.r")
+
+# execute the code with window size like 45
 main(size=45)
 ```
 
