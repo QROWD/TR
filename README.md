@@ -4,7 +4,7 @@ The Activity Recognition (AR) project is the implementation of a system based on
 
 ## Technical requirements
 
-The system was develop in `R` version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages are required: `e1071`, `kknn`, `randomForest`, `pROC` and `RWeka`. The installation process is similar to other packages available on CRAN:
+The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`, `kknn`, `randomForest`, `pROC` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
@@ -14,7 +14,7 @@ install.packages(c("e1071", "kknn", "randomForest",
 
 ## Exemplo of use
 
-The simplest way to execute the code is load the `run.r` file inside R. To generate and evaluate the models with the datasets available and export the model with highest performance, you need to call the `main` function. To change parameters like the size of the windows, you can use the `size` parameter:     
+The simplest way to execute the code is load the `run.r` file. To generate and evaluate the models with the datasets available and export the model with highest performance, you need to call the `main` function. To change parameters like the size of the windows, you can use the `size` parameter:     
 
 ```r
 # load the code
@@ -24,11 +24,10 @@ source("run.r")
 main(size=45)
 ```
 
-## Datasets availables
 
 ## Add more data or labels
 
-You can add more data (from other users) including a new file in the subfolder datasets. The file needs to be a csv separated by comma with the accelerometer (x, y, and z) columns and the label column. The scale of the accelerometer data needs to respect the range [-32, 32]. To add more labels, is important to guarantee that at least 2 users have the same label to avoid errors in the evaluation process.
+The datasets used in this project is a combination of public available accelerometer data [4]. and iLog data. You can add more data (from other users) including a new file in the subfolder datasets. The file needs to be a csv separated by comma with the accelerometer (x, y, and z) columns and the label column. The scale of the accelerometer data needs to respect the range [-32, 32]. To add more labels, is important to guarantee that at least 2 users have the same label to avoid errors in the evaluation process.
 
 ## Developer notes
 
