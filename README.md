@@ -24,6 +24,20 @@ source("run.r")
 main(size=45)
 ```
 
+The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the evaluation measures. We used two measures in the evaluation step: AUC and the accuracy for each label. The output is similar to that:
+
+```
+              ANN      C4.5       kNN        NB        RF       SVM
+auc     0.8525507 0.9065861 0.9345537 0.8502743 0.9371712 0.9575692
+cycling 0.9924528 0.9646018 0.9961686 0.9904762 0.9959514 1.0000000
+driving 0.5916667 0.7788018 0.7594937 0.9928571 0.9246231 0.9430052
+run     0.9742268 0.9219512 0.9947368 0.9219512 0.9742268 0.9742268
+still   0.7958333 0.8478747 0.8484108 0.7925311 0.8712644 0.8656036
+walking 0.9823789 0.9292605 0.9935275 0.8319783 0.9456193 0.9968454
+
+```
+
+The best model will be exported in the main folder with the name `model.rds` and can be loaded with `readRDS` function. 
 
 ## Add more data or labels
 
