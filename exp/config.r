@@ -4,9 +4,9 @@
 
 # Packages
 require(e1071)
+require(foreign)
 require(kknn)
 require(randomForest)
-require(pROC)
 
 # list of classifiers
 CLASSIFIERS = c("ANN", "C4.5", "kNN", "NB", "RF", "SVM")
