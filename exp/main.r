@@ -1,11 +1,16 @@
 # R code
 # Luis P. F. Garcia 2018
-# Validate the models
+# Validate and extract the models
+
+save <- function(result, size) {
+  model = extract(result, size)
+  saveRDS(model, "model.rds")
+}
 
 oracle <- function(file, size) {
   test = window(read(file), size)
-  train = window(read(setdiff(FILES, file)), size)
-  classifiers(train, test)
+  tran = window(read(setdiff(FILES, file)), size)
+  classifiers(tran, test)
 }
 
 main <- function(size) {
@@ -14,7 +19,6 @@ main <- function(size) {
     oracle(file, size)
   })
 
-  print(result)
-  model = extract(result, size)
-  saveRDS(model, "model.rds")
+  save(result, size)
+  return(result)
 }
