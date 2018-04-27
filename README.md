@@ -21,7 +21,7 @@ The simplest way to execute the code is load the `run.r` file. To generate and e
 source("run.r")
 
 # execute the code with window size like 45
-main(size=45)
+main(size=450)
 ```
 
 The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
