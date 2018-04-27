@@ -20,7 +20,7 @@ The simplest way to execute the code is load the `run.r` file. To generate and e
 # load the code
 source("run.r")
 
-# execute the code with window size like 45
+# execute the code with window size like 450
 main(size=450)
 ```
 
