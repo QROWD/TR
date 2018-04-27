@@ -1,15 +1,19 @@
 # AR - Activity Recognition
 
-The Activity Recognition (AR) project is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The techniques used include FFT [1] to transform the data and classifiers like ANN, k-NN, Random Forest and SVM [2]. The result is a model able to predict the labels with high accuracy and confident level. 
+The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bus, cycling, driving, walking and still. 
+
+## Techniques 
+
+The techniques used include time windows, Fast Fourier Transformation (FFT) [1] to preprocess the data and ML classifiers like Artificial Neural Networks (ANN), k-Nearest Neighbor (k-NN), Random Forest (RF) and Support Vector Machines (SVM) [2]. The result is a model able to predict the labels with high accuracy and confident level.  
 
 ## Technical requirements
 
-The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`, `kknn`, `randomForest`, `pROC` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
+The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`, `foreign`,  `kknn`, `randomForest` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
-install.packages(c("e1071", "kknn", "randomForest", 
-  "pROC", "RWeka"))
+install.packages(c("e1071", "foreign", "kknn", 
+  "randomForest", "RWeka"))
 ```
 
 ## Exemplo of use
@@ -24,16 +28,15 @@ source("run.r")
 main(size=45)
 ```
 
-The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the evaluation measures. We used two measures in the evaluation step: AUC and the accuracy for each label. The output is similar to that:
+The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
 
 ```r
               ANN      C4.5       kNN        NB        RF       SVM
-auc     0.8525507 0.9065861 0.9345537 0.8502743 0.9371712 0.9575692
-cycling 0.9924528 0.9646018 0.9961686 0.9904762 0.9959514 1.0000000
-driving 0.5916667 0.7788018 0.7594937 0.9928571 0.9246231 0.9430052
-run     0.9742268 0.9219512 0.9947368 0.9219512 0.9742268 0.9742268
-still   0.7958333 0.8478747 0.8484108 0.7925311 0.8712644 0.8656036
-walking 0.9823789 0.9292605 0.9935275 0.8319783 0.9456193 0.9968454
+bus     0.9172932 0.8421053 0.8872180 0.7067669 0.8646617 0.8571429
+cycling 0.9347079 0.9072165 0.9072165 0.9175258 0.9621993 0.9518900
+driving 0.9316406 0.7773438 0.9375000 0.8066406 0.9062500 0.8515625
+still   0.7728707 0.6845426 0.7192429 0.9684543 0.7697161 0.9652997
+walking 0.9965753 0.5513699 0.9931507 1.0000000 0.9828767 1.0000000
 ```
 
 The best model will be exported in the main folder with the name `model.rds` and can be loaded with `readRDS` function. 
