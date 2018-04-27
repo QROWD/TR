@@ -2,9 +2,7 @@
 
 The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bus, cycling, driving, walking and still. 
 
-## Techniques 
-
-The techniques used include time windows, Fast Fourier Transformation (FFT) [1] to preprocess the data and ML classifiers like Artificial Neural Networks (ANN), k-Nearest Neighbor (k-NN), Random Forest (RF) and Support Vector Machines (SVM) [2]. The result is a model able to predict the labels with high accuracy and confident level.  
+The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like Artificial Neural Networks (ANN), k-Nearest Neighbor (k-NN), Random Forest (RF) and Support Vector Machines (SVM) [2]. The result is a model able to predict the labels with high accuracy and confident level.  
 
 ## Technical requirements
 
