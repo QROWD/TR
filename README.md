@@ -1,6 +1,6 @@
 # AR - Activity Recognition
 
-The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bus, cycling, driving, walking and still. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like Artificial Neural Networks (ANN), k-Nearest Neighbor (k-NN), Random Forest (RF) and Support Vector Machines (SVM) [2]. The result is a model able to predict the labels with high accuracy and confident level.  
+The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bus, cycling, driving, walking and still. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, k-NN, Random Forest and SVM [2]. The result is a model able to predict the labels with high accuracy and confident level.  
 
 ## Technical requirements
 
@@ -20,8 +20,8 @@ The simplest way to execute the code is load the `run.r` file. To generate and e
 # load the code
 source("run.r")
 
-# execute the code with window size like 45
-main(size=45)
+# execute the code with window size like 450
+main(size=450)
 ```
 
 The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
