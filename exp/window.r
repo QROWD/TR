@@ -13,7 +13,7 @@ index <- function(i, s) {
   (((i-1)*s) + 1):(i*s)
 }
 
-window <- function(data, size=100) {
+window <- function(data, size) {
 
   step = 1:(nrow(data)/size)
   aux = t(sapply(step, function(i) {
