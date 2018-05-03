@@ -20,13 +20,6 @@ kNN <- function(tran, test, k=5) {
   list(NULL, pred)
 }
 
-NB <- function(tran, test) {
-  model = naiveBayes(class ~ ., tran)
-  pred = predict(model, test[,-ncol(test)], type="raw")
-  rownames(pred) = rownames(test)
-  list(model, pred)
-}
-
 RF <- function(tran, test) {
   model = randomForest(class ~ ., tran)
   pred = predict(model, test[,-ncol(test)], type="prob")
