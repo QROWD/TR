@@ -4,7 +4,7 @@
 
 best <- function(result) {
   clf = Reduce('+', result)/length(result)
-  names(which.max(clf["auc",]))
+  names(which.max(colMeans(clf)))
 }
 
 generate <- function(clf, size) {
