@@ -21,7 +21,7 @@ The simplest way to execute the code is load the `run.r` file. To generate and e
 source("run.r")
 
 # execute the code with window size like 450
-main(size=450)
+evaluate(size=450)
 ```
 
 The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
@@ -36,7 +36,13 @@ train 0.06451613 0.9354839 0.9677419 0.9677419 0.9677419 0.9677419
 walk  0.75862069 0.4827586 0.5862069 1.0000000 1.0000000 1.0000000
 ```
 
-The best model will be exported in the main folder with the name `model.rds` and can be loaded with `readRDS` function. 
+The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `execute` function with the file path and window size:
+
+```r
+execute(file="test.csv", size=450)
+```
+
+The output is a table with the label and associated probability column.
 
 ## Add more data or labels
 
