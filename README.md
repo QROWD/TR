@@ -20,7 +20,7 @@ The simplest way to execute the code is load the `run.r` file. To generate and e
 # load the code
 source("run.r")
 
-# execute the code with window size like 450
+# evalaute all the classifiers with window size as 450
 evaluate(size=450)
 ```
 
@@ -39,6 +39,8 @@ walk  0.75862069 0.4827586 0.5862069 1.0000000 1.0000000 1.0000000
 The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `execute` function with the file path and window size:
 
 ```r
+
+# use the exported model to predict the new data with window size as 450
 execute(file="test.csv", size=450)
 ```
 
