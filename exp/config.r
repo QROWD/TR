@@ -4,7 +4,6 @@
 
 # Packages
 require(e1071)
-require(foreign)
 require(kknn)
 require(randomForest)
 
