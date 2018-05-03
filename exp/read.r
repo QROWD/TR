@@ -7,5 +7,5 @@ aggregate <- function(data) {
 }
 
 read <- function(files) {
-  aggregate(do.call("rbind", lapply(files, read.arff)))
+  aggregate(do.call("rbind", lapply(files, read.csv)))
 }
