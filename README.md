@@ -1,6 +1,6 @@
 # AR - Activity Recognition
 
-The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict the labels with high accuracy and confident level.  
+The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, C4.5, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict the labels with high accuracy and confident level.  
 
 ## Technical requirements
 
@@ -8,7 +8,8 @@ The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execut
 
 ```r 
 # install the packages
-install.packages(c("e1071", "kknn", "randomForest", "RWeka"))
+install.packages(c("e1071", "kknn", 
+  "randomForest", "RWeka"))
 ```
 
 ## Exemplo of use
