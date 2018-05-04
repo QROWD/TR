@@ -14,11 +14,11 @@ install.packages(c("e1071", "kknn",
 
 ## Exemplo of use
 
-The simplest way to generate and evaluate the models with the datasets available is call the function `evaluate` with the windows size:
+The simplest way to generate and evaluate the models with the datasets available is call the function `induce` with the windows size:
 
 ```r
 # induce and export the best model for window size as 450
-Rscript --vanilla run.r evaluate 450
+Rscript --vanilla run.r induce 450
 ```
 
 The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
