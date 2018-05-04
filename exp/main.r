@@ -2,30 +2,30 @@
 # Luis P. F. Garcia 2018
 # Validate and extract the models
 
-save <- function(result, size) {
-  model = extract(result, size)
+save <- function(result, type, size) {
+  model = extract(result, type, size)
   saveRDS(model, "model.rds")
 }
 
-oracle <- function(file, size) {
-  test = window(read(file), size)
-  tran = window(read(setdiff(FILES, file)), size)
+oracle <- function(type, size, file) {
+  test = window(type, size, read(file))
+  tran = window(type, size, read(setdiff(FILES, file)))
   classifiers(tran, test)
 }
 
-induce <- function(size, ...) {
+induce <- function(type, size, ...) {
 
   result = lapply(FILES, function(file) {
-    oracle(file, size)
+    oracle(type, size, file)
   })
 
-  save(result, size)
+  save(result, type, size)
   return(result)
 }
 
-evaluate <- function(size, file) {
+evaluate <- function(type, size, file) {
 
-  test = window(read(file), size)
+  test = window(type, size, read(file))
 
   model = readRDS("model.rds")
   pred = predict(model, test, type="prob", prob=TRUE)

@@ -1,6 +1,6 @@
 # R code
 # Luis P. F. Garcia 2018
-# Split the time series as flat table
+# Split the time series as flat tables
 
 ff <- function(data) {
   aux = fft(data)/length(data)
@@ -9,18 +9,28 @@ ff <- function(data) {
   })
 }
 
-index <- function(i, s) {
-  (((i-1)*s) + 1):(i*s)
+static <- function(size, data) {
+  aux = 1:(nrow(data)/size)
+  lapply(aux, function(i) {
+    data[(((i-1)*size) + 1):(i*size),]
+  })
 }
 
-window <- function(data, size) {
+slide <- function(size, data, step=150) {
+  aux = seq(1, nrow(data) - size, by=step)
+  lapply(aux, function(i) {
+    data[i:(size + i -1),]
+  })
+}
 
-  step = 1:(nrow(data)/size)
-  aux = t(sapply(step, function(i) {
-    ff(data[index(i, size), 1])
+window <- function(type, size, data) {
+
+  aux = eval(call(type, size, data))
+  tmp = t(sapply(aux, function(i) {
+    ff(i$x)
   }))
 
-  aux = data.frame(aux)
-  aux$class = data[step*size, 2]
-  return(aux)
+  tmp = data.frame(tmp)
+  tmp$class = sapply(aux, "[", 1, "class")
+  return(tmp)
 }
