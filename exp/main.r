@@ -29,10 +29,10 @@ evaluate <- function(size, file) {
 
   model = readRDS("model.rds")
   pred = predict(model, test, type="prob", prob=TRUE)
-
   label = colnames(pred)[apply(pred, 1, which.max)]
   prob = apply(pred, 1, max)
 
   result = data.frame(label=label, prob=prob)
+  write.csv(result, "prediction.csv", row.names=FALSE)
   return(result)
 }
