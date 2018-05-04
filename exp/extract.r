@@ -7,14 +7,14 @@ best <- function(result) {
   names(which.max(colMeans(clf)))
 }
 
-generate <- function(clf, size) {
-  data = window(read(FILES), size)
-  do.call(clf, list(data, data))
+generate <- function(clf, type, size) {
+  data = window(type, size, read(FILES))
+  eval(call(clf, data, data))
 }
 
-extract <- function(result, size) {
+extract <- function(result, type, size) {
 
   clf = best(result)
-  model = generate(clf, size)[[1]]
+  model = generate(clf, type, size)[[1]]
   return(model)
 }
