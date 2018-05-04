@@ -13,7 +13,7 @@ oracle <- function(file, size) {
   classifiers(tran, test)
 }
 
-evaluate <- function(size) {
+induce <- function(size, ...) {
 
   result = lapply(FILES, function(file) {
     oracle(file, size)
@@ -23,7 +23,7 @@ evaluate <- function(size) {
   return(result)
 }
 
-execute <- function(file, size) {
+evaluate <- function(size, file) {
 
   test = window(read(file), size)
 

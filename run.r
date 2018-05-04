@@ -9,3 +9,5 @@ setup <- function() {
 }
 
 setup()
+aux = commandArgs(TRUE)
+do.call(aux[1], list(as.numeric(aux[2]), aux[3]))
