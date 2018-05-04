@@ -1,6 +1,6 @@
-# AR - Activity Recognition
+# TR - Transportation Recognition
 
-The Activity Recognition (AR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, C4.5, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict the labels with high accuracy and confident level.  
+The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, C4.5, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict new data  with high accuracy and high confident level.  
 
 ## Technical requirements
 
@@ -14,14 +14,11 @@ install.packages(c("e1071", "kknn",
 
 ## Exemplo of use
 
-The simplest way to execute the code is load the `run.r` file. To generate and evaluate the models with the datasets available and export the model with highest performance, you need to call the `main` function. To change parameters like the size of the windows, you can use the `size` parameter:     
+The simplest way to generate and evaluate the models with the datasets available is call the function `evaluate` with the windows size:
 
 ```r
-# load the code
-source("run.r")
-
-# evalaute all the classifiers with window size as 450
-evaluate(size=450)
+# induce and export the best model for window size as 450
+Rscript --vanilla run.r evaluate 450
 ```
 
 The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
@@ -36,12 +33,11 @@ train 0.06451613 0.9354839 0.9677419 0.9677419 0.9677419 0.9677419
 walk  0.75862069 0.4827586 0.5862069 1.0000000 1.0000000 1.0000000
 ```
 
-The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `execute` function with the file path and window size:
+The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `evaluate` function with the file path and window size:
 
 ```r
-
-# use the exported model to predict the new data with window size as 450
-execute(file="test.csv", size=450)
+# use the exported model to predict the user1 data with window size as 450
+Rscript --vanilla run.r evaluate 450 datasets/user1.txt
 ```
 
 The output is a table with the label and associated probability column.
