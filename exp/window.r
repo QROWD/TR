@@ -16,8 +16,8 @@ static <- function(size, data) {
   })
 }
 
-slide <- function(size, data, step=150) {
-  aux = seq(1, nrow(data) - size, by=step)
+slide <- function(size, data) {
+  aux = seq(1, nrow(data) - size, by=size/3)
   lapply(aux, function(i) {
     data[i:(size + i -1),]
   })
@@ -30,7 +30,7 @@ window <- function(type, size, data) {
     ff(i$x)
   }))
 
-  tmp = data.frame(tmp)
-  tmp$class = sapply(aux, "[", 1, "class")
+  class = sapply(aux, "[", 1, "class")
+  tmp = data.frame(tmp, class)
   return(tmp)
 }
