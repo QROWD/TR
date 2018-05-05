@@ -3,8 +3,8 @@
 # Extract the best model
 
 best <- function(result) {
-  clf = Reduce('+', result)/length(result)
-  names(which.max(colMeans(clf)))
+  clf = colMeans(Reduce('+', result)/length(result))
+  names(which.max(clf))
 }
 
 generate <- function(clf, type, size) {
