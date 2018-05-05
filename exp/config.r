@@ -6,9 +6,10 @@
 require(e1071)
 require(kknn)
 require(randomForest)
+require(rpart)
 
 # list of classifiers
-CLASSIFIERS = c("ANN", "C4.5", "kNN", "RF", "SVM")
+CLASSIFIERS = c("ANN", "CART", "kNN", "RF", "SVM")
 
 # datasets
 FILES = list.files(path="datasets", full.names=TRUE)

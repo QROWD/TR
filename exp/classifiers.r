@@ -8,16 +8,17 @@ ANN <- function(tran, test) {
   list(model, pred)
 }
 
-C4.5 <- function(tran, test) {
-  model = RWeka::J48(class ~ ., tran)
+CART <- function(tran, test) {
+  model = rpart(class ~ ., tran)
   pred = predict(model, test[,-ncol(test)], type="prob")
   list(model, pred)
 }
 
 kNN <- function(tran, test, k=5) {
-  pred = kknn(class ~., tran, test[,-ncol(test)], k=k)$prob
+  model = kknn(class ~., tran, test[,-ncol(test)], k=k)
+  pred = model$prob
   rownames(pred) = rownames(test)
-  list(NULL, pred)
+  list(model, pred)
 }
 
 RF <- function(tran, test) {
