@@ -1,24 +1,26 @@
 # TR - Transportation Recognition
 
-The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, C4.5, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict new data  with high accuracy and high confident level.  
+The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. 
+
+The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows (static and sliding) and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, CART, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict new data  with high accuracy and high confident level.  
 
 ## Technical requirements
 
-The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
+The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest`, `rpart` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
-install.packages(c("e1071", "kknn", 
-  "randomForest", "RWeka"))
+install.packages(c("e1071", "kknn", "randomForest", 
+  "rpart", "RWeka"))
 ```
 
 ## Exemplo of use
 
-The simplest way to generate and evaluate the models with the datasets available is call the function `induce` with the windows size:
+The simplest way to generate and evaluate the models with the datasets available is call the function `induce` with the window type and size:
 
 ```r
 # induce and export the best model for window size as 450
-Rscript --vanilla run.r induce 450
+Rscript --vanilla run.r induce static 450
 ```
 
 The output is the average performance of the models and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
@@ -33,11 +35,11 @@ train 0.06451613 0.9354839 0.9677419 0.9677419 0.9677419 0.9677419
 walk  0.75862069 0.4827586 0.5862069 1.0000000 1.0000000 1.0000000
 ```
 
-The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `evaluate` function with the file path and window size:
+The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `test` function with the model and file path:
 
 ```r
-# use the exported model to predict the user1 data with window size as 450
-Rscript --vanilla run.r evaluate 450 datasets/user1.txt
+# use the exported model to predict the user data labels
+Rscript --vanilla run.r test model.rds datasets/user1.txt
 ```
 
 The output is a table with the label and associated probability column.
