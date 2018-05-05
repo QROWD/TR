@@ -9,5 +9,5 @@ setup <- function() {
 }
 
 setup()
-aux = commandArgs(TRUE)
-do.call(aux[1], list(as.numeric(aux[2]), aux[3]))
+foo = commandArgs(TRUE)
+eval(call(foo[1], foo[2], foo[3]))
