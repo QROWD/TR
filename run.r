@@ -10,4 +10,11 @@ setup <- function() {
 
 setup()
 foo = commandArgs(TRUE)
-eval(call(foo[1], foo[2], foo[3]))
+
+switch(foo[1],
+  evaluate = {
+    evaluation(foo[2], as.numeric(foo[3]))
+  }, praedicere = {
+    praediction(foo[2], foo[3])
+  }
+)
