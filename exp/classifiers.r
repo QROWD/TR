@@ -1,37 +1,37 @@
 # R code
 # Luis P. F. Garcia 2018
-# Supervised Learning - Classifiers 
+# Supervised learning classifiers 
 
 ANN <- function(tran, test) {
   model = MLP(class ~ ., tran)
   pred = predict(model, test[,-ncol(test)], type="prob")
-  list(model, pred)
+  list(model=model, pred=pred)
 }
 
 CART <- function(tran, test) {
   model = rpart(class ~ ., tran)
   pred = predict(model, test[,-ncol(test)], type="prob")
-  list(model, pred)
+  list(model=model, pred=pred)
 }
 
 kNN <- function(tran, test, k=5) {
   model = kknn(class ~., tran, test[,-ncol(test)], k=k)
   pred = model$prob
   rownames(pred) = rownames(test)
-  list(model, pred)
+  list(model=model, pred=pred)
 }
 
 RF <- function(tran, test) {
   model = randomForest(class ~ ., tran)
   pred = predict(model, test[,-ncol(test)], type="prob")
-  list(model, pred)
+  list(model=model, pred=pred)
 }
 
 SVM <- function(tran, test) {
   model = svm(class ~ ., tran, kernel="radial", probability=TRUE)
   pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
   pred = pred[,levels(tran$class)]
-  list(model, pred)
+  list(model=model, pred=pred)
 }
 
 accuracy <- function(pred, class) {
@@ -42,7 +42,7 @@ accuracy <- function(pred, class) {
 
 classifiers <- function(tran, test) {
   sapply(CLASSIFIERS, function(c) {
-    pred = do.call(c, list(tran, test))[[2]]
-    accuracy(pred, test$class)
+    pred = do.call(c, list(tran, test))
+    accuracy(pred$pred, test$class)
   })
 }
