@@ -1,6 +1,6 @@
 # R code
 # Luis P. F. Garcia 2018
-# Extract the best model
+# Export the best model based on the average accuracy
 
 best <- function(result) {
   clf = colMeans(Reduce('+', result)/length(result))
@@ -9,12 +9,12 @@ best <- function(result) {
 
 generate <- function(clf, type, size) {
   data = window(type, size, read(FILES))
-  eval(call(clf, data, data))
+  eval(call(clf, data, data))$model
 }
 
 extract <- function(result, type, size) {
 
   clf = best(result)
-  model = generate(clf, type, size)[[1]]
+  model = generate(clf, type, size)
   return(model)
 }
