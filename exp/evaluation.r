@@ -1,6 +1,6 @@
 # R code
 # Luis P. F. Garcia 2018
-# Induce and export the models
+# Induce, evaluate and export the model
 
 save <- function(model, type, size) {
   aux = list(model=model, type=type, size=size)
