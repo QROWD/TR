@@ -1,6 +1,6 @@
 # R code
 # Luis P. F. Garcia 2018
-# Split the time series as flat tables
+# Split the time series as flat tables and apply fft
 
 ff <- function(data) {
   aux = fft(data)/length(data)
@@ -10,16 +10,16 @@ ff <- function(data) {
 }
 
 static <- function(size, data) {
-  aux = 1:(nrow(data)/size)
+  aux = seq(1, nrow(data) - size, by=size)
   lapply(aux, function(i) {
-    data[(((i-1)*size) + 1):(i*size),]
+    data[i:(i + size - 1),]
   })
 }
 
 slide <- function(size, data) {
   aux = seq(1, nrow(data) - size, by=size/3)
   lapply(aux, function(i) {
-    data[i:(size + i -1),]
+    data[i:(i + size - 1),]
   })
 }
 
