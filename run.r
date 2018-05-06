@@ -1,6 +1,6 @@
 # R code
 # Luis P. F. Garcia 2018
-# Start the experiments
+# Execute the experiment
 
 setup <- function() {
   aux = list.files("exp/", full.name=TRUE) 
@@ -15,6 +15,6 @@ switch(foo[1],
   evaluate = {
     evaluation(foo[2], as.numeric(foo[3]))
   }, praedicere = {
-    praediction(foo[2], foo[3])
+    prediction(foo[2], foo[3])
   }
 )
