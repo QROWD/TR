@@ -12,9 +12,9 @@ setup()
 foo = commandArgs(TRUE)
 
 switch(foo[1],
-  evaluate = {
+  evaluation = {
     evaluation(foo[2], as.numeric(foo[3]))
-  }, praedicere = {
+  }, prediction = {
     prediction(foo[2], foo[3])
   }
 )
