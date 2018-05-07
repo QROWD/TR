@@ -2,7 +2,9 @@
 # Luis P. F. Garcia 2018
 # Predict the labels for new data
 
-labels <- function(size, pred) {
+labels <- function(pred, type, size) {
+
+  if(type == "slide") size = size/3;
   label = rep(colnames(pred)[apply(pred, 1, which.max)], each=size)
   prob = rep(apply(pred, 1, max), each=size)
   data.frame(label=label, probabilitie=prob)
@@ -11,7 +13,7 @@ labels <- function(size, pred) {
 build <- function(data, result) {
   aux = nrow(data) - nrow(result)
   result = rbind(result, tail(result, aux))
-  write.csv(result, "prediction.csv", row.names=FALSE)
+  write.csv(result, "out.csv", row.names=FALSE)
 }
 
 is.svm <- function(model) {
@@ -29,7 +31,7 @@ prediction <- function(model, file) {
   if(is.svm(model$model))
     pred = attr(pred, "probabilities")
 
-  result = labels(model$size, pred)
+  result = labels(pred, model$type, model$size)
   build(data, result)
   return(0)
 }
