@@ -1,8 +1,6 @@
 # TR - Transportation Recognition
 
-The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips. 
-
-The system is current available to predict the labels: bike, bus, car, still, train and walk. The techniques used include time windows (static and sliding) and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, CART, k-NN, Random Forest and SVM [2] are used. The result is a model able to predict new data  with high accuracy and high confident level.  
+The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips like bike, bus, car, still, train and walk. The result is a model able to predict new data  with high accuracy and high confident level.  
 
 ## Technical requirements
 
@@ -16,7 +14,7 @@ install.packages(c("e1071", "kknn", "randomForest",
 
 ## Exemplo of use
 
-The simplest way to generate and evaluate the models with the datasets available is call the function `evaluation` with the window type and size:
+The techniques used include time windows (static and sliding) and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, CART, k-NN, Random Forest and SVM [2] are used. The simplest way to generate and evaluate the models with the datasets available is call the function `evaluation` with the window type and size:
 
 ```r
 # induce and export the best model for window size as 450
