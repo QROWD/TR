@@ -1,20 +1,20 @@
 # TR - Transportation Recognition
 
-The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips like bike, bus, car, still, train and walk. The result is a model able to predict new data  with high accuracy and high confident level.  
+The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips like bike, bus, car, train and walk. The result is a model able to predict new data  with high accuracy and high confident level.  
 
 ## Technical requirements
 
-The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest`, `rpart` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
+The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest`, `rJava`, `rpart` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
-install.packages(c("e1071", "kknn", "randomForest", 
+install.packages(c("e1071", "kknn", "randomForest", "rjava",
   "rpart", "RWeka"))
 ```
 
 ## Exemplo of use
 
-The techniques used include time windows (static and sliding) and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, CART, k-NN, Random Forest and SVM [2] are used. The simplest way to generate and evaluate the models with the datasets available is call the function `evaluation` with the window type and size:
+The techniques used include time windows (static and sliding) and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, CART, k-NN, Random Forest and SVM [2] are used. The simplest way to generate and evaluate the models with the datasets available is calling the function `evaluation` with the window type and size:
 
 ```r
 # induce and export the best model for window size as 450
@@ -40,11 +40,11 @@ The best model will be exported in the main folder with the name `model.rds`. To
 Rscript --vanilla run.r prediction model.rds datasets/user1.txt
 ```
 
-The output is a table with the label and associated probability column.
+The output is a table called `out.csv` with the label and associated probability column.
 
 ## Add more data or labels
 
-The datasets used in this project is a combination of public available accelerometer data [4]. and iLog data. You can add more data (from other users) including a new file in the subfolder datasets. The file needs to be a csv separated by comma with the accelerometer (x, y, and z) columns and the label column. The scale of the accelerometer data needs to respect the range [-32, 32]. To add more labels, is important to guarantee that at least 2 users have the same label to avoid errors in the evaluation process.
+The datasets used in this project is a combination of public available accelerometer data [4]. and iLog data. You can add more data (from other users) including a new file in the subfolder datasets. The file needs to be a csv separated by comma with the user id, accelerometer (x, y, and z) and the label columns. The scale of the accelerometer data needs to respect the range [-32, 32]. To add more labels, is important to guarantee that at least 2 users have the same label to avoid errors in the evaluation process.
 
 ## Developer notes
 
