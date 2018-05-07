@@ -7,16 +7,18 @@ save <- function(model, type, size) {
   saveRDS(aux, "model.rds")
 }
 
-oracle <- function(type, size, file) {
-  test = window(type, size, read(file))
-  tran = window(type, size, read(setdiff(FILES, file)))
+oracle <- function(tran, test, type, size) {
+  test = window(test, type, size)
+  tran = window(tran, type, size)
   classifiers(tran, test)
 }
 
 evaluation <- function(type, size) {
 
-  result = lapply(FILES, function(file) {
-    oracle(type, size, file)
+  data = cfold(read(FILES))
+
+  result = lapply(data$user, function(i) {
+    oracle(data$tran[[i]], data$test[[i]], type, size)
   })
 
   model = extract(result, type, size)

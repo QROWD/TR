@@ -8,7 +8,7 @@ best <- function(result) {
 }
 
 generate <- function(clf, type, size) {
-  data = window(type, size, read(FILES))
+  data = window(read(FILES), type, size)
   eval(call(clf, data, data))$model
 }
 

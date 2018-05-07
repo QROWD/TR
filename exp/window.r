@@ -9,25 +9,29 @@ ff <- function(data) {
   })
 }
 
-static <- function(size, data) {
+combine <- function(x, y, z) {
+  sqrt(x^2 + y^2 + z^2)
+}
+
+static <- function(data, size) {
   aux = seq(1, nrow(data) - size, by=size)
   lapply(aux, function(i) {
     data[i:(i + size - 1),]
   })
 }
 
-slide <- function(size, data) {
+slide <- function(data, size) {
   aux = seq(1, nrow(data) - size, by=size/3)
   lapply(aux, function(i) {
     data[i:(i + size - 1),]
   })
 }
 
-window <- function(type, size, data) {
+window <- function(data, type, size) {
 
-  aux = eval(call(type, size, data))
+  aux = eval(call(type, data, size))
   tmp = t(sapply(aux, function(i) {
-    ff(i$x)
+    ff(combine(i$x, i$y, i$z))
   }))
 
   class = sapply(aux, "[", 1, "class")
