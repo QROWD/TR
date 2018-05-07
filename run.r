@@ -3,9 +3,8 @@
 # Execute the experiment
 
 setup <- function() {
-  aux = list.files("exp/", full.name=TRUE) 
-  for(i in aux)
-    source(i)
+  aux = list.files("exp", full.name=TRUE) 
+  sapply(aux, source, .GlobalEnv)
 }
 
 setup()
