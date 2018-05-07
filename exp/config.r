@@ -7,11 +7,10 @@ require(e1071)
 require(kknn)
 require(randomForest)
 require(rJava)
-require(rpart)
 require(RWeka)
 
 # list of classifiers
-CLASSIFIERS = c("ANN", "CART", "kNN", "RF", "SVM")
+CLASSIFIERS = c("ANN", "C4.5", "CART", "kNN", "RF", "SVM")
 
 # datasets
 FILES = list.files(path="datasets", full.names=TRUE)

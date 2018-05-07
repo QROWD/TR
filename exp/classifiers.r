@@ -9,6 +9,13 @@ ANN <- function(tran, test) {
   list(model=model, pred=pred)
 }
 
+C4.5 <- function(tran, test) {
+  model = J48(class ~ ., tran)
+  .jcache(model$classifier)
+  pred = predict(model, test[,-ncol(test)], type="prob")
+  list(model=model, pred=pred)
+}
+
 CART <- function(tran, test) {
   model = rpart(class ~ ., tran)
   pred = predict(model, test[,-ncol(test)], type="prob")
