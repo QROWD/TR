@@ -2,12 +2,12 @@
 # Luis P. F. Garcia 2018
 # Execute the experiment
 
-setup <- function() {
+load <- function() {
   aux = list.files("exp", full.name=TRUE) 
-  sapply(aux, source, .GlobalEnv)
+  for(file in aux) source(file);
 }
 
-setup()
+load()
 foo = commandArgs(TRUE)
 
 switch(foo[1],

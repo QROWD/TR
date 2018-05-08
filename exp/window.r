@@ -3,7 +3,7 @@
 # Split the time series as flat tables and apply fft
 
 ff <- function(data) {
-  aux = fft(data)/length(data)
+  aux = fft(data)
   sapply(aux, function(i) {
     signif(Mod(i), 4)
   })

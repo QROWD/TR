@@ -7,6 +7,7 @@ require(e1071)
 require(kknn)
 require(randomForest)
 require(rJava)
+require(rpart)
 require(RWeka)
 
 # list of classifiers

@@ -24,9 +24,7 @@ CART <- function(tran, test) {
 
 kNN <- function(tran, test, k=5) {
   model = kknn(class ~., tran, test[,-ncol(test)], k=k)
-  pred = model$prob
-  rownames(pred) = rownames(test)
-  list(model=model, pred=pred)
+  list(model=model, pred=model$prob)
 }
 
 RF <- function(tran, test) {
