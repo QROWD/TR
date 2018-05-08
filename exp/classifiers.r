@@ -2,8 +2,15 @@
 # Luis P. F. Garcia 2018
 # Supervised learning classifiers 
 
+Adaboost <- function(tran, test) {
+  model = AdaBoostM1(class ~ ., tran, control=Weka_control(W="J48"))
+  .jcache(model$classifier)
+  pred = predict(model, test[,-ncol(test)], type="prob")
+  list(model=model, pred=pred)
+}
+
 ANN <- function(tran, test) {
-  model = MLP(class ~ ., tran)
+  model = MLP(class ~ ., tran, control=Weka_control(N=1000))
   .jcache(model$classifier)
   pred = predict(model, test[,-ncol(test)], type="prob")
   list(model=model, pred=pred)
@@ -22,7 +29,7 @@ CART <- function(tran, test) {
   list(model=model, pred=pred)
 }
 
-kNN <- function(tran, test, k=5) {
+kNN <- function(tran, test, k=3) {
   model = kknn(class ~., tran, test[,-ncol(test)], k=k)
   list(model=model, pred=model$prob)
 }
@@ -43,9 +50,8 @@ SVM <- function(tran, test) {
 XGBoost <- function(tran, test) {
 
   tran.y = as.numeric(tran$class) -1
-  model = xgboost(as.matrix(tran[,-ncol(tran)]), label=tran.y, nrounds=50, 
-    num_class=max(tran.y) +1, objective="multi:softprob",
-    eval_metric="mlogloss", verbose=0)
+  model = xgboost(as.matrix(tran[,-ncol(tran)]), label=tran.y, nrounds=50,
+    num_class=max(tran.y) +1, objective="multi:softprob", verbose=0)
 
   pred = predict(model, as.matrix(test[,-ncol(test)]))
   pred = matrix(pred, nrow=nrow(test), ncol=max(tran.y) +1, byrow=TRUE)
@@ -56,7 +62,7 @@ XGBoost <- function(tran, test) {
 accuracy <- function(pred, class) {
   class = factor(class, levels=colnames(pred))
   pred = factor(colnames(pred)[apply(pred, 1, which.max)], levels=colnames(pred))
-  diag(table(class, pred))/rowSums(table(class, pred))
+  sum(diag(table(class, pred)))/sum(table(class, pred))
 }
 
 classifiers <- function(tran, test) {
