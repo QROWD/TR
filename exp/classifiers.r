@@ -35,8 +35,21 @@ RF <- function(tran, test) {
 
 SVM <- function(tran, test) {
   model = svm(class ~ ., tran, kernel="radial", probability=TRUE)
-  pred = attr(predict(model, test[,-ncol(test)], probability=TRUE), "probabilities")
+  pred = attr(predict(model, test, probability=TRUE), "probabilities")
   pred = pred[,levels(tran$class)]
+  list(model=model, pred=pred)
+}
+
+XGBoost <- function(tran, test) {
+
+  tran.y = as.numeric(tran$class) -1
+  model = xgboost(as.matrix(tran[,-ncol(tran)]), label=tran.y, nrounds=50, 
+    num_class=max(tran.y) +1, objective="multi:softprob",
+    eval_metric="mlogloss", verbose=0)
+
+  pred = predict(model, as.matrix(test[,-ncol(test)]))
+  pred = matrix(pred, nrow=nrow(test), ncol=max(tran.y) +1, byrow=TRUE)
+  colnames(pred) = levels(tran$class)
   list(model=model, pred=pred)
 }
 
