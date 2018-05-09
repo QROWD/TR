@@ -5,11 +5,13 @@
 # Packages
 require(e1071)
 require(kknn)
+require(pROC)
 require(randomForest)
 require(rJava)
 require(rpart)
 require(RWeka)
 require(xgboost)
+require(wavelets)
 
 # list of classifiers
 CLASSIFIERS = c("Adaboost", "C4.5", "CART", "kNN", "RF", "SVM", "XGBoost")
