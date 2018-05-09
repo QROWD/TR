@@ -53,21 +53,14 @@ XGBoost <- function(tran, test) {
   model = xgboost(as.matrix(tran[,-ncol(tran)]), label=tran.y, nrounds=50,
     num_class=max(tran.y) +1, objective="multi:softprob", verbose=0)
 
-  pred = predict(model, as.matrix(test[,-ncol(test)]))
-  pred = matrix(pred, nrow=nrow(test), ncol=max(tran.y) +1, byrow=TRUE)
+  pred = predict(model, as.matrix(test[,-ncol(test)]), reshape=TRUE)
   colnames(pred) = levels(tran$class)
   list(model=model, pred=pred)
-}
-
-accuracy <- function(pred, class) {
-  class = factor(class, levels=colnames(pred))
-  pred = factor(colnames(pred)[apply(pred, 1, which.max)], levels=colnames(pred))
-  sum(diag(table(class, pred)))/sum(table(class, pred))
 }
 
 classifiers <- function(tran, test) {
   sapply(CLASSIFIERS, function(c) {
     pred = do.call(c, list(tran, test))
-    accuracy(pred$pred, test$class)
+    performance(test$class, pred$pred)
   })
 }
