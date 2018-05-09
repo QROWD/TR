@@ -21,7 +21,7 @@ evaluation <- function(type, size) {
     oracle(data$tran[[i]], data$test[[i]], type, size)
   })
 
-  model = extract(result, type, size)
+  model = extract(data, result, type, size)
   save(model, type, size)
   return(result)
 }
