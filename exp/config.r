@@ -5,7 +5,6 @@
 # Packages
 require(e1071)
 require(kknn)
-require(pROC)
 require(randomForest)
 require(rJava)
 require(rpart)
