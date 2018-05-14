@@ -8,13 +8,13 @@ dwt <- function(data) {
 }
 
 dft <- function(data) {
-  aux = fft(data)
+  aux = fft(data)#/length(data)
   sapply(aux, function(i) {
     signif(Mod(i), 4)
   })
 }
 
-combine <- function(x, y, z) {
+magnitude <- function(x, y, z) {
   sqrt(x^2 + y^2 + z^2)
 }
 
@@ -40,7 +40,7 @@ window <- function(data, type, size) {
 
   aux = eval(call(type, data, size))
   tmp = t(sapply(aux, function(i) {
-    dft(combine(i$x, i$y, i$z))
+    dft(magnitude(i$x, i$y, i$z))
   }))
 
   class = sapply(aux, label)
