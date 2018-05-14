@@ -51,7 +51,7 @@ XGBoost <- function(tran, test) {
 
   tran.y = as.numeric(tran$class) -1
   model = xgboost(as.matrix(tran[,-ncol(tran)]), label=tran.y, nrounds=50,
-    num_class=max(tran.y) +1, objective="multi:softprob", verbose=0)
+    num_class=max(tran.y) + 1, objective="multi:softprob", verbose=0)
 
   pred = predict(model, as.matrix(test[,-ncol(test)]), reshape=TRUE)
   colnames(pred) = levels(tran$class)
