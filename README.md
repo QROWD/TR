@@ -14,7 +14,7 @@ install.packages(c("e1071", "kknn", "randomForest", "rjava", "rpart",
 
 ## Exemplo of use
 
-The Data Mining techniques used include Time Window operations and Signal Processing methods to preprocess the data. In the ML level, classifiers like Adaboost, ANN, C4.5, CART, k-NN, Random Forest, SVM and XGBoost [1] are used. The simplest way to generate and evaluate the models with the datasets available is calling the `evaluation` function. The parameters are the window type (`static` or `slide`), the discrete transformation (`dft` or `dwt`) and the window `size`:
+The Data Mining techniques used include Time Window operations and Signal Processing methods [1] to preprocess the data. In the ML level, classifiers like Adaboost, ANN, C4.5, CART, k-NN, Random Forest, SVM and XGBoost [2] are used. The simplest way to generate and evaluate the models with the datasets available is calling the `evaluation` function. The parameters are the window type (`static` or `slide`), the discrete transformation (`dft` or `dwt`) and the window `size`:
 
 ```r
 # induce and export the best model 
@@ -24,19 +24,16 @@ Rscript --vanilla run.r evaluation static dft 450
 The output is the average performance of the models by user and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the evaluation measures. The output is similar to that:
 
 ```r
-             ANN      C4.5       kNN        NB        RF       SVM
-bike  0.72413793 0.8620690 0.3448276 1.0000000 0.9310345 0.7241379
-bus   0.88461538 0.6153846 0.8461538 0.5384615 0.7307692 0.6923077
-car   0.03846154 0.1346154 0.8846154 0.8461538 0.8653846 0.8461538
-still 0.00000000 0.5806452 0.7419355 0.5483871 0.8709677 0.9032258
-train 0.06451613 0.9354839 0.9677419 0.9677419 0.9677419 0.9677419
-walk  0.75862069 0.4827586 0.5862069 1.0000000 1.0000000 1.0000000
+       Adaboost       ANN      C4.5      CART       kNN        RF       SVM  XGBoost
+acc   0.7888889 0.3944444 0.6888889 0.6722222 0.7111111 0.9166667 0.8555556 0.750000
+kappa 0.7452609 0.2950054 0.6258630 0.6053218 0.6519023 0.8993701 0.8247978 0.698324
+
 ```
 
 The best model will be exported in the main folder with the name `model.rds`. To evaluate a new data, you can call the `prediction` function with the `model` and `file` path:
 
 ```r
-# use the exported model to predict the user data labels
+# use the exported model to predict the new data
 Rscript --vanilla run.r prediction model.rds test.txt
 ```
 
@@ -52,11 +49,11 @@ To submit bugs and feature requests, report at [project issues](https://github.c
 
 ## References
 
-[1] Cooley, James W., and Tukey, John W. (1965). An algorithm for the machine calculation of complex Fourier series, Mathematics of Computation, 19(90), 297-301.
+[1] Martin Vetterli, Jelena Kovačević and Vivek K. Goyal. (2014). Foundations of Signal Processing, 1ed, Cambridge University Press.
 
-[2] Mitchell, Thomas M. (1997). Machine Learning (1ed.), McGraw-Hill, Inc., New York, NY, USA.
+[2] Thomas M. Mitchell. (1997). Machine Learning, 1ed, McGraw-Hill.
 
-[3] R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
+[3] R Core Team. (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
 
-[4] Choudhury, Romit R. (2014).  CS-199: Big Data Course. URL http://web.engr.illinois.edu/~croy/big-data-spring14/BigData-course.html.
+[4] Romit R. Choudhury. (2014). CS-199: Big Data Course. URL http://web.engr.illinois.edu/~croy/big-data-spring14/BigData-course.html.
 
