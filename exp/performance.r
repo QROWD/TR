@@ -21,6 +21,5 @@ performance <- function(true, prob) {
   clas = colnames(prob)
   true = factor(true, levels=clas)
   pred = factor(clas[apply(prob, 1, which.max)], levels=clas)
-  c(acc=accuracy(true, pred), kappa=kappa(true, pred),
-    auc=auc(true, prob))
+  c(acc=accuracy(true, pred), kappa=kappa(true, pred))
 }
