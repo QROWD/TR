@@ -10,7 +10,7 @@ Adaboost <- function(tran, test) {
 }
 
 ANN <- function(tran, test) {
-  model = MLP(class ~ ., tran, control=Weka_control(N=1000))
+  model = MLP(class ~ ., tran)
   .jcache(model$classifier)
   pred = predict(model, test[,-ncol(test)], type="prob")
   list(model=model, pred=pred)
