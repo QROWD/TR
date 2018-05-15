@@ -36,11 +36,11 @@ slide <- function(data, size) {
   })
 }
 
-window <- function(data, type, size) {
+window <- function(data, wtype, ftype, size) {
 
-  aux = eval(call(type, data, size))
+  aux = eval(call(wtype, data, size))
   tmp = t(sapply(aux, function(i) {
-    dft(magnitude(i$x, i$y, i$z))
+     eval(call(ftype, magnitude(i$x, i$y, i$z)))
   }))
 
   class = sapply(aux, label)
