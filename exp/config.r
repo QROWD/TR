@@ -13,7 +13,7 @@ require(xgboost)
 require(wavelets)
 
 # list of classifiers
-CLASSIFIERS = c("Adaboost", "C4.5", "CART", "kNN", "RF", "SVM", "XGBoost")
+CLASSIFIERS = c("Adaboost", "ANN", "C4.5", "CART", "kNN", "RF", "SVM", "XGBoost")
 
 # datasets
 FILES = list.files(path="datasets", full.names=TRUE)
