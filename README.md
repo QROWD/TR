@@ -1,27 +1,27 @@
 # TR - Transportation Recognition
 
-The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips like bike, bus, car, train and walk. The result is a model able to predict new data  with high accuracy and high confident level.  
+The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips like bike, bus, car, train and walk. The result is a model able to predict new data  with high accuracy and high confident level.
 
 ## Technical requirements
 
-The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest`, `rJava`, `rpart` and `RWeka` are required. The installation process is similar to other packages available on CRAN:
+The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest`, `rJava`, `rpart`, `RWeka`, `xgboost` and `wavelets` are required. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
-install.packages(c("e1071", "kknn", "randomForest", "rjava",
-  "rpart", "RWeka"))
+install.packages(c("e1071", "kknn", "randomForest", "rjava", "rpart", 
+  "RWeka", "xgboost", "wavelets"))
 ```
 
 ## Exemplo of use
 
-The techniques used include time windows (static and sliding) and Fast Fourier Transformation (FFT) [1] to preprocess the data. In the ML level, classifiers like ANN, CART, k-NN, Random Forest and SVM [2] are used. The simplest way to generate and evaluate the models with the datasets available is calling the function `evaluation` with the window `type` and `size`:
+The Data Mining techniques used include Time Window operations and Signal Processing methods to preprocess the data. In the ML level, classifiers like Adaboost, ANN, C4.5, CART, k-NN, Random Forest, SVM and XGBoost [1] are used. The simplest way to generate and evaluate the models with the datasets available is calling the `evaluation` function. The parameters are the window type (`static` or `slide`), the discrete transformation (`dft` or `dwt`) and the window `size`:
 
 ```r
-# induce and export the best model for window size as 450
-Rscript --vanilla run.r evaluation static 450
+# induce and export the best model 
+Rscript --vanilla run.r evaluation static dft 450
 ```
 
-The output is the average performance of the models by user and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the accuracy for each label. The output is similar to that:
+The output is the average performance of the models by user and the best model exported. The average performance is a matrix where the columns represent the classifiers available and the lines represent the evaluation measures. The output is similar to that:
 
 ```r
              ANN      C4.5       kNN        NB        RF       SVM
@@ -37,7 +37,7 @@ The best model will be exported in the main folder with the name `model.rds`. To
 
 ```r
 # use the exported model to predict the user data labels
-Rscript --vanilla run.r prediction model.rds datasets/user1.txt
+Rscript --vanilla run.r prediction model.rds test.txt
 ```
 
 The output is a table called `out.csv` with the label and associated probability column.
