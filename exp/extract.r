@@ -1,20 +1,14 @@
 # R code
 # Luis P. F. Garcia 2018
-# Export the best model based on the average accuracy
+# Export the best model based on the accuracy
 
-best <- function(result) {
-  clf = colMeans(Reduce('+', result)/length(result))
-  names(which.max(clf))
-}
+extract <- function(data, result, wtype, ftype, size) {
 
-generate <- function(clf, type, size) {
-  data = window(read(FILES), type, size)
-  eval(call(clf, data, data))$model
-}
+  result = do.call("rbind", lapply(result, "[", "acc",))
+  clf = names(which.max(colMeans(result)))
+  user = which.max(result[,clf])
 
-extract <- function(result, type, size) {
-
-  clf = best(result)
-  model = generate(clf, type, size)
-  return(model)
+  data = window(data$tran[[user]], wtype, ftype, size)
+  model = eval(call(clf, data, data))
+  return(model$model)
 }
