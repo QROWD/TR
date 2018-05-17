@@ -3,8 +3,13 @@
 # Predict the labels for new data
 
 labels <- function(pred, wtype, size) {
-  if(wtype == "slide") size = size/3;
-  pred[rep(1:nrow(pred), each=size),]
+
+  if(wtype == "slide") {
+    size = size/3
+  }
+
+  pred = pred[rep(1:nrow(pred), each=size),]
+  return(pred)
 }
 
 build <- function(data, result) {
@@ -21,20 +26,20 @@ is.svm <- function(model) {
 prediction <- function(model, file) {
 
   data = read(file)
-  model = readRDS(model)
+  m = readRDS(model)
 
-  if(nrow(data) < model$size) {
+  if(nrow(data) < m$size) {
     file.create("out.csv")
     return(0)
   }
 
-  test = window(data, model$wtype, model$ftype, model$size)
-  pred = predict(model$model, test, type="prob", prob=TRUE)
+  test = window(data, m$wtype, m$ftype, m$size)
+  pred = predict(m$model, test, type="prob", prob=TRUE)
 
-  if(is.svm(model$model))
+  if(is.svm(m$model))
     pred = attr(pred, "probabilities")
 
-  result = labels(pred, model$wtype, model$size)
+  result = labels(pred, m$wtype, m$size)
   build(data, result)
   return(0)
 }
