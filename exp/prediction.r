@@ -10,6 +10,7 @@ labels <- function(pred, wtype, size) {
 build <- function(data, result) {
   aux = nrow(data) - nrow(result)
   result = rbind(result, tail(result, aux))
+  result = data.frame(data$timestamp, result)
   write.csv(result, "out.csv", row.names=FALSE)
 }
 
@@ -19,8 +20,11 @@ is.svm <- function(model) {
 
 prediction <- function(model, file) {
 
-  model = readRDS(model)
   data = read(file)
+  model = readRDS(model)
+
+  if(nrow(data) < model$size)
+    write.csv(NULL, "out.csv")
 
   test = window(data, model$wtype, model$ftype, model$size)
   pred = predict(model$model, test, type="prob", prob=TRUE)
