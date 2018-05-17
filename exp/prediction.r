@@ -23,8 +23,10 @@ prediction <- function(model, file) {
   data = read(file)
   model = readRDS(model)
 
-  if(nrow(data) < model$size)
-    write.csv(NULL, "out.csv")
+  if(nrow(data) < model$size) {
+    file.create("out.csv")
+    return(0)
+  }
 
   test = window(data, model$wtype, model$ftype, model$size)
   pred = predict(model$model, test, type="prob", prob=TRUE)
