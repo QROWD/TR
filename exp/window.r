@@ -2,15 +2,24 @@
 # Luis P. F. Garcia 2018
 # Split the time series as flat tables and apply fft
 
-ff <- function(data) {
-  aux = fft(data)/length(data)
+dwt <- function(data) {
+  aux = wavelets::dwt(data, filter="haar")
+  unlist(aux@W)
+}
+
+dft <- function(data) {
+  aux = fft(data)#/length(data)
   sapply(aux, function(i) {
     signif(Mod(i), 4)
   })
 }
 
-combine <- function(x, y, z) {
+magnitude <- function(x, y, z) {
   sqrt(x^2 + y^2 + z^2)
+}
+
+label <- function(data) {
+  names(which.max(summary(data$class)))
 }
 
 static <- function(data, size) {
@@ -27,14 +36,14 @@ slide <- function(data, size) {
   })
 }
 
-window <- function(data, type, size) {
+window <- function(data, wtype, ftype, size) {
 
-  aux = eval(call(type, data, size))
+  aux = eval(call(wtype, data, size))
   tmp = t(sapply(aux, function(i) {
-    ff(combine(i$x, i$y, i$z))
+     eval(call(ftype, magnitude(i$x, i$y, i$z)))
   }))
 
-  class = sapply(aux, "[", 1, "class")
+  class = sapply(aux, label)
   tmp = data.frame(tmp, class)
   return(tmp)
 }

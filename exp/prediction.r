@@ -2,12 +2,9 @@
 # Luis P. F. Garcia 2018
 # Predict the labels for new data
 
-labels <- function(pred, type, size) {
-
-  if(type == "slide") size = size/3;
-  label = rep(colnames(pred)[apply(pred, 1, which.max)], each=size)
-  prob = rep(apply(pred, 1, max), each=size)
-  data.frame(label=label, probabilitie=prob)
+labels <- function(pred, wtype, size) {
+  if(wtype == "slide") size = size/3;
+  pred[rep(1:nrow(pred), each=size),]
 }
 
 build <- function(data, result) {
@@ -20,18 +17,25 @@ is.svm <- function(model) {
   any(class(model) == "svm")
 }
 
-prediction <- function(model, file) {
+# initialize the model given the path to the model file
+init_model <- function (modelPath) {
+  print("loading model...")
+  model <<- readRDS(modelPath)
+  print("done.")
+}
 
-  model = readRDS(model)
+# prediction call, will write output to 'out.csv'
+prediction <- function(file) {
+  # read data from CSV file
   data = read(file)
-
-  test = window(data, model$type, model$size)
+  
+  test = window(data, model$wtype, model$ftype, model$size)
   pred = predict(model$model, test, type="prob", prob=TRUE)
-
+  
   if(is.svm(model$model))
     pred = attr(pred, "probabilities")
-
-  result = labels(pred, model$type, model$size)
+  
+  result = labels(pred, model$wtype, model$size)
   build(data, result)
   return(0)
 }
