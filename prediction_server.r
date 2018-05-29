@@ -38,7 +38,7 @@ server <- function(){
    
     args <- unlist(strsplit(data, " "))
     print(paste0("loading data from ", args[1]))
-    prediction_task(args[1])
+    prediction(args[1])
     response <- "done" 
     writeLines(response, con) 
     close(con)
