@@ -9,7 +9,7 @@ The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execut
 ```r 
 # install the packages
 install.packages(c("e1071", "kknn", "randomForest", "rJava", "rpart", 
-  "RWeka", "xgboost", "wavelets"))
+  "RWeka", "xgboost", "wavelets", "optparse"))
 ```
 
 ## Exemplo of use
