@@ -1,4 +1,4 @@
-# TR - Transportation Recognition
+# TR
 
 The Transportation Recognition (TR) is the implementation of a system based on Machine Learning techniques to detect transportation modes using the accelerometer data of iLog users in QROWD project. The ML techniques were used in combination with Data Mining strategies to pre-process the streaming data and evaluate the models to provide confident labels for specific trips like bike, bus, car, train and walk. The result is a model able to predict new data  with high accuracy and high confident level.
 
