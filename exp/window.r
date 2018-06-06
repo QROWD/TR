@@ -2,9 +2,15 @@
 # Luis P. F. Garcia 2018
 # Split the time series as flat tables and apply fft
 
+
+dst <- function(data) {
+  c(summary(data), kurtosis(data), skewness(data), gMean(data), 
+    hMean(data), IQR(data))
+}
+
 dwt <- function(data) {
   aux = wavelets::dwt(data, filter="haar")
-  unlist(aux@W)
+  return(aux@W$W1)
 }
 
 dft <- function(data) {
