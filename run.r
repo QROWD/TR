@@ -15,6 +15,9 @@ switch(foo[1],
     evaluation(foo[2], foo[3], as.numeric(foo[4]))
   }, prediction = {
     init_model(foo[2])
-    prediction(foo[3])
+    if(length(foo) == 3) {
+      foo[4] <- "out.csv"
+   }
+    prediction(foo[3],foo[4])
   }
 )

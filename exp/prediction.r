@@ -7,10 +7,10 @@ labels <- function(pred, wtype, size) {
   pred[rep(1:nrow(pred), each=size),]
 }
 
-build <- function(data, result) {
+build <- function(data, result, outputFile) {
   aux = nrow(data) - nrow(result)
   result = rbind(result, tail(result, aux))
-  write.csv(result, "out.csv", row.names=FALSE)
+  write.csv(result, outputFile, row.names=FALSE)
 }
 
 is.svm <- function(model) {
@@ -25,9 +25,9 @@ init_model <- function (modelPath) {
 }
 
 # prediction call, will write output to 'out.csv'
-prediction <- function(file) {
+prediction <- function(inputFile, outputFile="out.csv") {
   # read data from CSV file
-  data = read(file)
+  data = read(inputFile)
   
   test = window(data, model$wtype, model$ftype, model$size)
   pred = predict(model$model, test, type="prob", prob=TRUE)
@@ -36,6 +36,6 @@ prediction <- function(file) {
     pred = attr(pred, "probabilities")
   
   result = labels(pred, model$wtype, model$size)
-  build(data, result)
+  build(data, result, outputFile)
   return(0)
 }
