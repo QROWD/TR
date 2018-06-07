@@ -6,14 +6,14 @@ read <- function(files) {
   data.frame(do.call("rbind", lapply(files, read.csv)))
 }
 
-sampling <- function(data) {
+sampling <- function(data, hz=15) {
 
   data$timestamp = as.POSIXct(data$timestamp, format="%Y-%m-%dT%H:%M:%OS")
   aux = names(table(data$timestamp))
 
   foo = lapply(aux, function(i) {
     tmp = data[as.character(data$timestamp) == i,]
-    tmp[seq(1, nrow(tmp), by=nrow(tmp)/15),]
+    tmp[seq(1, nrow(tmp), by=nrow(tmp)/hz),]
   })
 
   do.call("rbind", foo)
