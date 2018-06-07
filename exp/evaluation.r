@@ -15,9 +15,9 @@ oracle <- function(tran, test, wtype, ftype, size) {
 
 evaluation <- function(wtype, ftype, size) {
 
-  data = cfold(read(FILES))
+  data = kfold(read(FILES))
 
-  result = lapply(data$user, function(i) {
+  result = lapply(1:length(data$user), function(i) {
     oracle(data$tran[[i]], data$test[[i]], wtype, ftype, size)
   })
 
