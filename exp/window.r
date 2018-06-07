@@ -2,7 +2,6 @@
 # Luis P. F. Garcia 2018
 # Split the time series as flat tables and apply fft
 
-
 dst <- function(data) {
   c(summary(data), kurtosis(data), skewness(data), gMean(data), 
     hMean(data), IQR(data))
