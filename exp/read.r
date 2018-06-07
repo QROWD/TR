@@ -32,7 +32,6 @@ kfold <- function(data) {
   })
 
   tmp = list()
-  tmp$user = user
   tmp$tran = tran
   tmp$test = test
   return(tmp)
