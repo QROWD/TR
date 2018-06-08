@@ -3,17 +3,19 @@
 # Read the time series and apply k-fold cross-validation
 
 read <- function(files) {
-  data.frame(do.call("rbind", lapply(files, read.csv)))
+  data = data.frame(do.call("rbind", lapply(files, read.csv)))
+  data$timestamp = as.POSIXct(data$timestamp, format="%Y-%m-%d %H:%M:%OS")
+  return(data)
 }
 
-sampling <- function(data, hz=15) {
+sampling <- function(data, cores=10, hz=15) {
 
-  data$timestamp = as.POSIXct(data$timestamp, format="%Y-%m-%dT%H:%M:%OS")
   aux = names(table(data$timestamp))
 
-  foo = lapply(aux, function(i) {
-    tmp = data[as.character(data$timestamp) == i,]
-    tmp[seq(1, nrow(tmp), by=nrow(tmp)/hz),]
+  foo = mclapply(aux, mc.cores=cores, function(i) {
+    tmp = subset(data, as.character(timestamp) %in% i)
+    vet = seq(1, nrow(tmp), by=nrow(tmp)/hz)
+    tmp[vet,]
   })
 
   do.call("rbind", foo)

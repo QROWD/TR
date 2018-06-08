@@ -27,8 +27,8 @@ init_model <- function (modelPath) {
 # prediction call, will write output to 'out.csv'
 prediction <- function(inputFile, outputFile="out.csv") {
   # read data from CSV file
-  data = read(inputFile)
-  
+  data = sampling(read(inputFile))
+
   test = window(data, model$wtype, model$ftype, model$size)
   pred = predict(model$model, test, type="prob", prob=TRUE)
   
