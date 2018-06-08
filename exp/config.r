@@ -10,6 +10,7 @@ require(rJava)
 require(rpart)
 require(RWeka)
 require(xgboost)
+require(parallel)
 require(wavelets)
 
 # list of classifiers
