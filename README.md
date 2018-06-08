@@ -4,17 +4,17 @@ The Transportation Recognition (TR) is the implementation of a system based on M
 
 ## Technical requirements
 
-The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `randomForest`, `rJava`, `rpart`, `RWeka`, `xgboost` and `wavelets` are required. The installation process is similar to other packages available on CRAN:
+The system was develop in R version 3.4.4 -- "Someone to Lean On" [3]. To execute the code, the packages `e1071`,  `kknn`, `optparse`, `parallel`, `randomForest`, `rJava`, `rpart`, `RWeka`, `xgboost` and `wavelets` and  are required. The installation process is similar to other packages available on CRAN:
 
 ```r 
 # install the packages
-install.packages(c("e1071", "kknn", "randomForest", "rJava", "rpart", 
-  "RWeka", "xgboost", "wavelets", "optparse"))
+install.packages(c("e1071", "kknn", "optparse", "parallel", "randomForest", 
+  "rJava", "rpart", "RWeka", "xgboost", "wavelets"))
 ```
 
 ## Exemplo of use
 
-The Data Mining techniques used include Time Window operations and Signal Processing methods [1] to preprocess the data. In the ML level, classifiers like Adaboost, ANN, C4.5, CART, k-NN, Random Forest, SVM and XGBoost [2] are used. The simplest way to generate and evaluate the models with the datasets available is calling the `evaluation` function. The parameters are the window type (`static` or `slide`), the discrete transformation (`dft` or `dwt`) and the window `size`:
+The Data Mining techniques used include Time Window operations and Signal Processing methods [1] to preprocess the data. In the ML level, classifiers like Adaboost, ANN, C4.5, CART, k-NN, Random Forest, SVM and XGBoost [2] are used. The simplest way to generate and evaluate the models with the datasets available is calling the `evaluation` function. The parameters are the window type (`static` or `slide`), the discrete transformation (`dft`, `dwt` or `dsf`) and the window `size`:
 
 ```r
 # induce and export the best model 
@@ -41,7 +41,7 @@ The output is a table called `out.csv` with the label and associated probability
 
 ## Add more data or labels
 
-The datasets used in this project is a combination of public available accelerometer data [4]. and iLog data. You can add more data (from other users) including a new file in the subfolder datasets. The file needs to be a csv separated by comma with the user id, accelerometer (x, y, and z) and the label columns. To add more labels, is important to guarantee that at least 2 users have the same label to avoid errors in the evaluation process.
+The datasets used in this project is a combination of public available accelerometer data [4]. and iLog data. You can add more data (from other users) including a new file in the subfolder datasets. The file needs to be a csv separated by comma with the user id, timestamp, accelerometer (x, y, and z) and the label columns. To add more labels, is important to guarantee that at least 2 users have the same label to avoid errors in the evaluation process.
 
 ## Developer notes
 
