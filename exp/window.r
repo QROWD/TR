@@ -48,7 +48,11 @@ window <- function(data, wtype, ftype, size) {
      eval(call(ftype, magnitude(i$x, i$y, i$z)))
   }))
 
-  class = sapply(aux, label)
-  tmp = data.frame(tmp, class)
+  if(!is.null(iris$class)) {
+    class = sapply(aux, label)
+    tmp = data.frame(tmp, class)
+  }
+
+  tmp = data.frame(tmp)
   return(tmp)
 }

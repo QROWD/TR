@@ -8,13 +8,13 @@ read <- function(files) {
   return(data)
 }
 
-sampling <- function(data, cores=10, hz=15) {
+sampling <- function(data, hz=15, cores=10) {
 
   aux = names(table(data$timestamp))
 
   foo = mclapply(aux, mc.cores=cores, function(i) {
     tmp = subset(data, as.character(timestamp) %in% i)
-    vet = seq(1, nrow(tmp), by=nrow(tmp)/hz)
+    vet = seq(1, nrow(tmp), length.out=hz)
     tmp[vet,]
   })
 
