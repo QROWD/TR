@@ -20,27 +20,25 @@ labels <- function(pred, df, wtype, size) {
   do.call("rbind", result)
 }
 
-build <- function(data, result, outputFile) {
+build <- function(data, result, output) {
   aux = nrow(data) - nrow(result)
   result = rbind(result, tail(result, aux))
-  write.csv(result, outputFile, row.names=FALSE)
+  write.csv(result, output, row.names=FALSE)
 }
 
 is.svm <- function(model) {
   any(class(model) == "svm")
 }
 
-# initialize the model given the path to the model file
 init_model <- function (modelPath) {
   print("loading model...")
   model <<- readRDS(modelPath)
   print("done.")
 }
 
-# prediction call, will write output to 'out.csv'
-prediction <- function(inputFile, outputFile="out.csv") {
-  # read data from CSV file
-  df = read(inputFile)
+prediction <- function(input, output="out.csv") {
+
+  df = read(input)
 
   data = sampling(df)
   test = window(data, model$wtype, model$ftype, model$size)
@@ -52,6 +50,6 @@ prediction <- function(inputFile, outputFile="out.csv") {
 
   
   result = labels(pred, df, model$wtype, model$size)
-  build(df, result, outputFile)
+  build(df, result, output)
   return(0)
 }
