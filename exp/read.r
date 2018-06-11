@@ -3,10 +3,25 @@
 # Read the time series and apply k-fold cross-validation
 
 read <- function(files) {
-  do.call("rbind", lapply(files, read.csv))
+  data = data.frame(do.call("rbind", lapply(files, read.csv)))
+  data$timestamp = as.POSIXct(data$timestamp, format="%Y-%m-%d %H:%M:%OS")
+  return(data)
 }
 
-cfold <- function(data) {
+sampling <- function(data, hz=15, cores=10) {
+
+  aux = names(table(data$timestamp))
+
+  foo = mclapply(aux, mc.cores=cores, function(i) {
+    tmp = subset(data, as.character(timestamp) %in% i)
+    vet = seq(1, nrow(tmp), length.out=hz)
+    tmp[vet,]
+  })
+
+  do.call("rbind", foo)
+}
+
+kfold <- function(data) {
 
   user = unique(data$user)
 
@@ -19,7 +34,6 @@ cfold <- function(data) {
   })
 
   tmp = list()
-  tmp$user = user
   tmp$tran = tran
   tmp$test = test
   return(tmp)

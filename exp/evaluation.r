@@ -15,11 +15,12 @@ oracle <- function(tran, test, wtype, ftype, size) {
 
 evaluation <- function(wtype, ftype, size) {
 
-  data = cfold(read(FILES))
+  data = kfold(read(FILES))
 
-  result = lapply(data$user, function(i) {
-    oracle(data$tran[[i]], data$test[[i]], wtype, ftype, size)
-  })
+  result = mapply(function(tran, test) {
+    oracle(tran, test, wtype, ftype, size)
+  }, tran=data$tran, test=data$test, 
+  SIMPLIFY=FALSE)
 
   model = extract(data, result, wtype, ftype, size)
   save(model, wtype, ftype, size)

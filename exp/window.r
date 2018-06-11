@@ -2,9 +2,14 @@
 # Luis P. F. Garcia 2018
 # Split the time series as flat tables and apply fft
 
+dst <- function(data) {
+  c(summary(data), kurtosis(data), skewness(data), gMean(data), 
+    hMean(data), IQR(data))
+}
+
 dwt <- function(data) {
   aux = wavelets::dwt(data, filter="haar")
-  unlist(aux@W)
+  return(aux@W$W1)
 }
 
 dft <- function(data) {
@@ -43,7 +48,11 @@ window <- function(data, wtype, ftype, size) {
      eval(call(ftype, magnitude(i$x, i$y, i$z)))
   }))
 
-  class = sapply(aux, label)
-  tmp = data.frame(tmp, class)
+  if(!is.null(data$class)) {
+    class = sapply(aux, label)
+    tmp = data.frame(tmp, class)
+  }
+
+  tmp = data.frame(tmp)
   return(tmp)
 }
